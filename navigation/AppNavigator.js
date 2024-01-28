@@ -1,13 +1,36 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons"; // Import the desired icon set
+import { createStackNavigator } from "@react-navigation/stack";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen"; // to be deleted
+
+import HomePage from "../screens/HomePage";
+import Profile from "../screens/Profile";
 import MapsScreen from "../screens/MapsScreen";
+import SettingsList from "../screens/SettingsList";
+import EditProfile from "../screens/EditProfile";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function SettingsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SettingsList"
+        component={SettingsList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 export default function AppNavigator() {
   return (
@@ -23,15 +46,29 @@ export default function AppNavigator() {
               iconName = focused ? "person" : "person-outline";
             } else if (route.name === "Maps") {
               iconName = focused ? "map" : "map-outline";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "settings" : "settings-outline";
             }
-
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
       >
+        <Tab.Screen
+          name="Home"
+          component={HomePage}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name="Maps" component={MapsScreen} />
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsStack}
+          options={{ headerShown: false }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
