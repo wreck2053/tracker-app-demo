@@ -12,6 +12,9 @@ import MapsScreen from "../screens/MapsScreen";
 import SettingsList from "../screens/SettingsList";
 import EditProfile from "../screens/EditProfile";
 
+
+import WalkActivity from "../screens/WalkActivity";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -48,6 +51,8 @@ export default function AppNavigator() {
               iconName = focused ? "map" : "map-outline";
             } else if (route.name === "Settings") {
               iconName = focused ? "settings" : "settings-outline";
+            } else if (route.name === "WalkActivity") {
+              iconName = focused ? "walk" : "walk-outline";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -67,6 +72,11 @@ export default function AppNavigator() {
         <Tab.Screen
           name="Settings"
           component={SettingsStack}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="WalkActivity"
+          component={WalkActivity}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>
